@@ -11,17 +11,29 @@ app.use(express.json());
 
 app.use("/api", router);
 
+let server;
+
 async function startApp() {
   try {
     await mongoose.connect(process.env.DBL_URL, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
-    app.listen(process.env.PORT, () =>
+    server = app.listen(process.env.PORT, () =>
       console.log("SERVER STARTED ON PORT 4000")
     );
   } catch (e) {
     console.log(e);
   }
 }
+
 startApp();
+
+process.on("SIGINT", () => {
+  if (server) {
+    server.close(() => {
+      console.log("Server stopped.");
+      process.exit(0);
+    });
+  }
+});
