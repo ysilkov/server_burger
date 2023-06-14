@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js && echo 'Server stopped.",
+    "start": "node server.js && echo 'Server stopped.'",
     "dev": "nodemon server.js"
   },
   "keywords": [],
